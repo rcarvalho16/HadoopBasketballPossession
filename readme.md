@@ -23,6 +23,9 @@ The final output provides detailed statistics about:
 
 ## Implementation Details
 
+### 0. First Job (01-FinalProjectExtractFrames)
+Read an input video using a custom record reader class (VideoRecordReader) and outputs the frames into a SequenceFile
+
 ### 1. Input Format
 The input is a **Sequence File** containing `(LongWritable, BytesWritable)` pairs:
 - **Key:** Frame index.
