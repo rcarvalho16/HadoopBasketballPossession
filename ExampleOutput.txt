@@ -1,0 +1,3 @@
+Lakers (Yellow)	5
+Trailblazers (Red)	25
+Unknown Team	20
