@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+		xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cdle.project</groupId>
+        <artifactId>08-Project</artifactId>
+        <version>2020.2021.SemInv</version>
+    </parent>
+  
+  <groupId>cdle.project.mr</groupId>
+  <artifactId>01-FinalProjectExtractFrames</artifactId>
+
+  <packaging>jar</packaging>
+
+  <name>01-FinalProjectExtractFrames</name>
+  <description>Project - Extract frames from video.</description>
+  
+  <properties>
+    <libs.directory>libs</libs.directory>
+  </properties>
+  
+  <dependencies>   
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Apache MapReduce Unit -->
+    <dependency>
+      <groupId>org.apache.mrunit</groupId>
+      <artifactId>mrunit</artifactId>
+      <version>${mrunit.version}</version>
+      <classifier>hadoop2</classifier>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+    <dependency>
+      <groupId>org.openpnp</groupId>
+      <artifactId>opencv</artifactId>
+      <version>${opencv.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client</artifactId>
+      <version>${hadoop.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Hadoop test artifact for running mini clusters -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-minicluster</artifactId>
+      <version>${hadoop.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+      <plugins>
+
+		<plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+		  <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>${libs.directory}/</classpathPrefix>
+                <mainClass>cdle.opencv.VideoFrameExtractorJob</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        
+		<plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          
+          <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/${libs.directory}</outputDirectory>
+                        <excludeScope>provided</excludeScope>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>         
+
+    </plugins>
+  </build>
+</project>

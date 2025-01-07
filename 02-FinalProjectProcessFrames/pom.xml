@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+		xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cdle.project</groupId>
+        <artifactId>08-Project</artifactId>
+        <version>2020.2021.SemInv</version>
+    </parent>
+  
+  <groupId>cdle.project.mr</groupId>
+  <artifactId>02-ProcessFrames</artifactId>
+
+  <packaging>jar</packaging>
+
+  <name>ProcessFrames</name>
+  <description>Project - Process images from video.</description>
+  
+  <properties>
+    <libs.directory>libs</libs.directory>
+  </properties>
+  
+ <dependencies>
+        <!-- Hadoop Dependencies -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+
+        <!-- JUnit -->
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>${junit.version}</version>
+          <scope>provided</scope>
+        </dependency>
+
+        <!-- Apache MapReduce Unit -->
+        <dependency>
+          <groupId>org.apache.mrunit</groupId>
+          <artifactId>mrunit</artifactId>
+          <version>${mrunit.version}</version>
+          <classifier>hadoop2</classifier>
+          <scope>provided</scope>
+        </dependency>
+
+        <!-- OpenCV Dependency -->
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>${opencv.version}</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+
+        <!-- Hadoop test artifact for running mini clusters -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-minicluster</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+      
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.1.2</version>
+          <configuration>
+            <outputDirectory>${project.build.directory}/${libs.directory}</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <id>copy-dependencies</id>
+                <phase>prepare-package</phase>
+                  <goals>
+                    <goal>copy-dependencies</goal>
+                  </goals>
+                      <configuration>
+                        <outputDirectory>${project.build.directory}/${libs.directory}</outputDirectory>
+                        <excludeScope>provided</excludeScope>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                    </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+		  <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>${libs.directory}/</classpathPrefix>
+                <mainClass>cdle.opencv.ImageDriver</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+
+        
+
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <reporting>
+  </reporting>
+</project>

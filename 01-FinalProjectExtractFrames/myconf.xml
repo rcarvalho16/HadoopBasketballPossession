@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<configuration>
+  <property>
+    <name>mapreduce.job.map.class</name>
+    <value>cdle.opencv.FrameExtractorMapper</value>
+  </property>
+
+  <property>
+    <name>mapreduce.job.inputformat.class</name>
+    <value>cdle.opencv.VideoInputFormat</value>
+  </property>
+
+  <property>
+    <name>mapreduce.job.name</name>
+    <value>xpto</value>
+  </property>
+
+  <property>
+    <name>frames.output.dir</name>
+    <value>/home/usermr/examples/output/OpenCV/VideoFrames</value>
+  </property>
+
+  <property>
+    <name>frames.max.count</name>
+    <value>50</value>
+  </property>
+
+  <property>
+    <name>frames.interval.seconds</name>
+    <value>1.0</value>
+  </property>
+
+  <property>
+  <name>mapreduce.job.outputformat.class</name>
+  <value>org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat</value>
+  </property>
+
+
+</configuration>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<configuration>
+  <property>
+    <name>mapreduce.job.map.class</name>
+    <value>cdle.opencv.ImageMapper</value>
+  </property>
+
+  <property>
+    <name>mapreduce.job.name</name>
+    <value>Process Frames</value>
+  </property>
+
+  <property>
+    <name>frames.output.dir</name>
+    <value>/home/usermr/examples/output/OpenCV/ReconstructedFrames</value>
+  </property>
+
+
+  <property>
+  <name>mapreduce.job.inputFormat.class</name>
+  <value>org.apache.hadoop.mapreduce.lib.output.SequenceFileInputFormat</value>
+  </property>
+
+  <property>
+      <name>yolo.model.config</name>
+      <value>/home/usermr/examples/Projects/08-Project/02-FinalProjectProcessFrames/yolo-files/yolov3.cfg</value>
+  </property>
+  <property>
+      <name>yolo.model.weights</name>
+      <value>/home/usermr/examples/Projects/08-Project/02-FinalProjectProcessFrames/yolo-files/yolov3.weights</value>
+  </property>
+  <property>
+      <name>yolo.class.names</name>
+      <value>/home/usermr/examples/Projects/08-Project/02-FinalProjectProcessFrames/yolo-files/coco.names</value>
+  </property>
+
+</configuration>
